@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+  xampp_dev:
+    image: tomsik68/xampp
+    container_name: xampp_dev
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - dev_network
+    volumes:
+      - /path/para/seus/htdocs:/opt/lampp/htdocs
+
+  mysql_dev:
+    image: mysql:8.0
+    container_name: mysql_dev
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: meubanco
+    ports:
+      - "3307:3306"
+    volumes:
+      - ~/mysql_data:/var/lib/mysql
+    networks:
+      - dev_network
+
+networks:
+  dev_network:
+    driver: bridge
