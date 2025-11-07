@@ -1,16 +1,6 @@
-version: "3.8"
-services:
-  xampp_dev:
-    image: tomsik68/xampp
-    container_name: xampp_dev
-    ports:
-      - "80:80"
-      - "443:443"
-    networks:
-      - dev_network
-    volumes:
-      - /path/para/seus/htdocs:/opt/lampp/htdocs
+version: '3.8'
 
+services:
   mysql_dev:
     image: mysql:8.0
     container_name: mysql_dev
@@ -21,6 +11,31 @@ services:
       - "3307:3306"
     volumes:
       - ~/mysql_data:/var/lib/mysql
+    networks:
+      - dev_network
+
+  phpmyadmin_dev:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin_dev
+    environment:
+      PMA_HOST: mysql_dev
+      PMA_USER: root
+      PMA_PASSWORD: root123
+    ports:
+      - "8081:80"
+    depends_on:
+      - mysql_dev
+    networks:
+      - dev_network
+
+  xampp_dev:
+    image: tomsik68/xampp
+    container_name: xampp_dev
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /home/joao-victor/my_web_pages:/www
     networks:
       - dev_network
 
