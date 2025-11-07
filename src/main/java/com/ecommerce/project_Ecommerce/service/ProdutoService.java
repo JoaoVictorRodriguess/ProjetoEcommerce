@@ -21,6 +21,9 @@ public class ProdutoService {
         if (produto.getPreco() <= 0) {
             throw new IllegalArgumentException("O preço do produto deve ser maior que zero.");
         }
+        //Calcula o valor total do estoque
+        produto.atualizarValorEstoque();
+
         // Chamada ao Repositório para salvar (que o JpaRepository já fornece)
         return produtoRepository.save(produto);
     }
@@ -61,6 +64,9 @@ public class ProdutoService {
         produtoExistente.setPreco(produtoDetalhes.getPreco());
         produtoExistente.setQuantidadeEstoque(produtoDetalhes.getQuantidadeEstoque());
         // Você pode adicionar mais campos aqui conforme a necessidade
+
+        // Recalcula o valor total do estoque
+        produtoExistente.atualizarValorEstoque();
 
         // 5. Salva o objeto modificado de volta no banco de dados
         return produtoRepository.save(produtoExistente);

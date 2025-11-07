@@ -24,6 +24,12 @@ public class Produto {
 
     private int quantidadeEstoque;
 
+    private double valorEstoque;
+
+    public void atualizarValorEstoque(){
+        this.valorEstoque = this.preco * this.quantidadeEstoque;
+    }
+
     public double getPreco() {
         return preco;
     }
